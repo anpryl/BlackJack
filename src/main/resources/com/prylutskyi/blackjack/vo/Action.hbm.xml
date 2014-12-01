@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.prylutskyi.blackjack.vo.Action" table="action" catalog="blackjack">
+        <id name="actionId" type="java.lang.Long">
+            <column name="action_id"/>
+            <generator class="native"/>
+        </id>
+        <property name="date" type="java.util.Date">
+            <column name="date" not-null="true"/>
+        </property>
+        <property name="log" type="java.lang.String">
+            <column name="log" not-null="true"/>
+        </property>
+        <many-to-one name="game" class="com.prylutskyi.blackjack.vo.Game">
+            <column name="game_id" not-null="true"/>
+        </many-to-one>
+    </class>
+</hibernate-mapping>

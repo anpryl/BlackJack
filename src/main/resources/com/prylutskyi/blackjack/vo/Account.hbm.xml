@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.prylutskyi.blackjack.vo.Account" table="account" catalog="blackjack">
+        <id name="accountId" type="java.lang.Long">
+            <column name="account_id"/>
+            <generator class="native"/>
+        </id>
+        <property name="balance" type="java.lang.Double" not-null="true"/>
+        <bag name="games" table="game" inverse="true" cascade="all" lazy="true">
+            <key>
+                <column name="account_id" not-null="true"/>
+            </key>
+            <one-to-many class="com.prylutskyi.blackjack.vo.Game"/>
+        </bag>
+        <bag name="transactions" table="transaction" inverse="true" cascade="all" lazy="true">
+            <key>
+                <column name="account_id" not-null="true"/>
+            </key>
+            <one-to-many class="com.prylutskyi.blackjack.vo.Transaction"/>
+        </bag>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.prylutskyi.blackjack.vo.Game" table="game" catalog="blackjack">
+        <id name="gameId" type="java.lang.Long">
+            <column name="game_id"/>
+            <generator class="native"/>
+        </id>
+        <property name="startTime" type="java.util.Date">
+            <column name="start_time" not-null="true"/>
+        </property>
+        <bag name="actions" table="action" inverse="true" cascade="all" lazy="true">
+            <key>
+                <column name="game_id" not-null="true"/>
+            </key>
+            <one-to-many class="com.prylutskyi.blackjack.vo.Action"/>
+        </bag>
+        <many-to-one name="account" class="com.prylutskyi.blackjack.vo.Account">
+            <column name="account_id" not-null="true"/>
+        </many-to-one>
+    </class>
+</hibernate-mapping>
