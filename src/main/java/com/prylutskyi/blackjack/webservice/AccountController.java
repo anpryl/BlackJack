@@ -29,7 +29,7 @@ public class AccountController {
     }
 
     @RequestMapping(value = "/addmoney/{accountId}/{amount}", method = RequestMethod.PUT)
-    public void addFunds(@PathVariable long accountId, @PathVariable double amount) {
+    public void addMoney(@PathVariable long accountId, @PathVariable double amount) {
         accountService.increaseBalance(accountId, amount);
     }
 
