@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.SmartLifecycle;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBuilder;
@@ -29,6 +30,7 @@ import java.util.Properties;
 
 @Configuration
 @EnableTransactionManagement
+@PropertySource(value = {"classpath:application.properties"})
 public class PersistenceConfig {
 
     public static final String HIBERNATE_SHOW_SQL = "hibernate.show_sql";
@@ -39,10 +41,15 @@ public class PersistenceConfig {
     public static final String JDBC_USERNAME = "jdbc.username";
     public static final String JDBC_PASSWORD = "jdbc.password";
 
-    public static final String DATABASE_FILE = "database.0";
-    public static final String DATABASE_NAME = "dbname.0";
-    public static final String SERVER_REMOTE_OPEN = "remote_open";
-    public static final String RECONFIG_LOGGING = "reconfig_logging";
+    public static final String DATABASE_FILE_VALUE = "file:BlackJackDB/demodb";
+    public static final String DATABASE_NAME_VALUE = "xdb";
+    public static final String SERVER_REMOTE_VALUE = "true";
+    public static final String RECONFIG_LOGGING_VALUE = "false";
+
+    public static final String DATABASE_FILE_KEY = "server.database.0";
+    public static final String DATABASE_NAME_KEY = "server.dbname.0";
+    public static final String SERVER_REMOTE_KEY = "server.remote_open";
+    public static final String RECONFIG_LOGGING_KEY = "server.reconfig_logging";
 
     @Autowired
     private Environment env;
@@ -79,10 +86,8 @@ public class PersistenceConfig {
     }
 
     @Bean
-    public HibernateTransactionManager transactionManager(
-            SessionFactory sessionFactory) {
-        return new HibernateTransactionManager(
-                sessionFactory);
+    public HibernateTransactionManager transactionManager() {
+        return new HibernateTransactionManager(sessionFactory());
     }
 
     @Bean
@@ -92,6 +97,7 @@ public class PersistenceConfig {
         dataSource.setUrl(env.getProperty(JDBC_URL));
         dataSource.setUsername(env.getProperty(JDBC_USERNAME));
         dataSource.setPassword(env.getProperty(JDBC_PASSWORD));
+        smartLifecycle();
         return dataSource;
     }
 
@@ -102,10 +108,10 @@ public class PersistenceConfig {
 
     private Properties getHsqldbProperties() {
         Properties prop = new Properties();
-        putProperty(prop, DATABASE_FILE);
-        putProperty(prop, DATABASE_NAME);
-        putProperty(prop, SERVER_REMOTE_OPEN);
-        putProperty(prop, RECONFIG_LOGGING);
+        prop.put(DATABASE_FILE_KEY, DATABASE_FILE_VALUE);
+        prop.put(DATABASE_NAME_KEY, DATABASE_NAME_VALUE);
+        prop.put(SERVER_REMOTE_KEY, SERVER_REMOTE_VALUE);
+        prop.put(RECONFIG_LOGGING_KEY, RECONFIG_LOGGING_VALUE);
         return prop;
     }
 
@@ -118,7 +124,10 @@ public class PersistenceConfig {
     }
 
     private void putProperty(Properties prop, String key) {
-        prop.put(key, env.getProperty(key));
+        String value = env.getProperty(key);
+        if (value != null) {
+            prop.put(key, value);
+        }
     }
 
 }

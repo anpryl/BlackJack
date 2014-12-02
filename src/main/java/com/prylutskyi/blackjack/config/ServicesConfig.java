@@ -17,14 +17,12 @@ import com.prylutskyi.blackjack.services.impl.TransactionServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
 
 /**
  * Created by Patap on 27.11.2014.
  */
 
 @Configuration
-@PropertySource(value = {"classpath:application.properties"})
 public class ServicesConfig {
 
     @Autowired

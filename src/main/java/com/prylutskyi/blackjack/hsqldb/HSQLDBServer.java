@@ -20,6 +20,7 @@ public class HSQLDBServer implements SmartLifecycle {
 
     public HSQLDBServer(Properties props) {
         properties = new HsqlProperties(props);
+        start();
     }
 
     @Override
@@ -60,7 +61,7 @@ public class HSQLDBServer implements SmartLifecycle {
 
     @Override
     public boolean isAutoStartup() {
-        return true;
+        return false;
     }
 
     @Override
