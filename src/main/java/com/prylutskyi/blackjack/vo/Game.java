@@ -1,5 +1,7 @@
 package com.prylutskyi.blackjack.vo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -18,6 +20,7 @@ public class Game implements Serializable {
 
     private Account account;
 
+    @JsonIgnore
     private List<Action> actions = new ArrayList<>();
 
     public Long getGameId() {

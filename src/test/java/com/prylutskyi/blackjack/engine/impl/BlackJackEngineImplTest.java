@@ -60,6 +60,7 @@ public class BlackJackEngineImplTest {
         Table table = prepareTableWithDeck();
         engine.makeBet(table, TEST_BET);
         engine.makeBet(table, TEST_BET);
+        engine.makeBet(table, TEST_BET);
     }
 
     @Test

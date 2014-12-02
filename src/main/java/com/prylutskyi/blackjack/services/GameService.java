@@ -18,5 +18,5 @@ public interface GameService {
 
     GameStatus hit(long accountId);
 
-    GameStatus stand(long accountid);
+    GameStatus stand(long accountId);
 }

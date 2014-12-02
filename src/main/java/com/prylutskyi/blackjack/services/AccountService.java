@@ -13,5 +13,5 @@ public interface AccountService {
 
     Account getAccountById(long accountId);
 
-    void increaseBalance(long id, double amount);
+    void increaseBalance(long accountId, double amount);
 }

@@ -1,5 +1,10 @@
 package com.prylutskyi.blackjack.constants;
 
+import org.springframework.test.web.servlet.ResultMatcher;
+
+import static org.springframework.http.MediaType.APPLICATION_JSON;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+
 /**
  * Created by Patap on 30.11.2014.
  */
@@ -18,4 +23,5 @@ public class TestConstants {
     public static final String TEST_STAND_LOG = "stand";
     public static final String TEST_PLAYER_WIN_LOG = "player win log";
 
+    public static final ResultMatcher JSON_FORMAT = content().contentType(APPLICATION_JSON);
 }
