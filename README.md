@@ -27,14 +27,18 @@ List of commands:
 _______________________________________________________________  
 /game/{accountId} + :
    
-      /startgame/{bet} - (POST_METHOD) -  prepares new table for new player {accountId} with {bet}, you need to click this only once per session, but you can always start new game. Returns GameStatus with your cards, dealer's cards and information about winner, if someone wins. Returns GameStatus
+      /startgame/{bet} - (POST_METHOD) -  prepares new table for new player {accountId} with {bet},
+      you need to click this only once per session, but you can always start new game. 
+      Returns GameStatus with your cards, dealer's cards and information about winner, if someone wins.
     
-      /bet/{bet} - (POST_METHOD) - playses new {bet}, you need to do this only whe some one win or it's draw. You don't need to start game every time someone won. Returns GameStatus
+      /bet/{bet} - (POST_METHOD) - playses new {bet}, you need to do this only whe some one win or it's draw. 
+      You don't need to start game every time someone won. Returns GameStatus
     
-    /hit/ - (POST_METHOD) - after first deal you can take next card from deck("hit") or you have enough cards and you decide to stop("stand"). 
-Returns GameStatus
+      /hit/ - (POST_METHOD) - after first deal you can take next card from deck("hit") or you have enough
+      cards and you decide to stop("stand"). Returns GameStatus
    
-      /stand/ - (POST_METHOD) - when you decide to stop take cards from deck you say "Stand" and dealer starts his move. Returns GameStatus                                       
+      /stand/ - (POST_METHOD) - when you decide to stop take cards from deck you say "Stand" and dealer 
+      starts his move. Returns GameStatus                                       
     
     /games/ - (GET_METHOD) - returns all games for {accountId}
     
