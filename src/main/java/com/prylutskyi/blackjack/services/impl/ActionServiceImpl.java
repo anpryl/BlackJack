@@ -5,6 +5,7 @@ import com.prylutskyi.blackjack.dao.GameDao;
 import com.prylutskyi.blackjack.services.ActionService;
 import com.prylutskyi.blackjack.vo.Action;
 import com.prylutskyi.blackjack.vo.Game;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -13,6 +14,7 @@ import static com.prylutskyi.blackjack.utils.CheckUtils.checkForNull;
 /**
  * Created by Patap on 29.11.2014.
  */
+@Transactional
 public class ActionServiceImpl implements ActionService {
 
     private ActionDao actionDao;

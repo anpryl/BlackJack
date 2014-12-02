@@ -8,9 +8,11 @@ import com.prylutskyi.blackjack.dao.impl.AccountDaoImpl;
 import com.prylutskyi.blackjack.dao.impl.ActionDaoImpl;
 import com.prylutskyi.blackjack.dao.impl.GameDaoImpl;
 import com.prylutskyi.blackjack.dao.impl.TransactionDaoImpl;
+import com.prylutskyi.blackjack.hsqldb.HSQLDBServer;
 import org.apache.commons.dbcp.BasicDataSource;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.SmartLifecycle;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
@@ -36,6 +38,11 @@ public class PersistenceConfig {
     public static final String JDBC_URL = "jdbc.url";
     public static final String JDBC_USERNAME = "jdbc.username";
     public static final String JDBC_PASSWORD = "jdbc.password";
+
+    public static final String DATABASE_FILE = "database.0";
+    public static final String DATABASE_NAME = "dbname.0";
+    public static final String SERVER_REMOTE_OPEN = "remote_open";
+    public static final String RECONFIG_LOGGING = "reconfig_logging";
 
     @Autowired
     private Environment env;
@@ -88,12 +95,30 @@ public class PersistenceConfig {
         return dataSource;
     }
 
+    @Bean
+    public SmartLifecycle smartLifecycle() {
+        return new HSQLDBServer(getHsqldbProperties());
+    }
+
+    private Properties getHsqldbProperties() {
+        Properties prop = new Properties();
+        putProperty(prop, DATABASE_FILE);
+        putProperty(prop, DATABASE_NAME);
+        putProperty(prop, SERVER_REMOTE_OPEN);
+        putProperty(prop, RECONFIG_LOGGING);
+        return prop;
+    }
+
     private Properties getHibernateProperties() {
         Properties properties = new Properties();
-        properties.put(HIBERNATE_SHOW_SQL, env.getProperty(HIBERNATE_SHOW_SQL));
-        properties.put(HIBERNATE_DIALECT, env.getProperty(HIBERNATE_DIALECT));
-        properties.put(HIBERNATE_HBM2DDL_AUTO, env.getProperty(HIBERNATE_HBM2DDL_AUTO));
+        putProperty(properties, HIBERNATE_SHOW_SQL);
+        putProperty(properties, HIBERNATE_DIALECT);
+        putProperty(properties, HIBERNATE_HBM2DDL_AUTO);
         return properties;
+    }
+
+    private void putProperty(Properties prop, String key) {
+        prop.put(key, env.getProperty(key));
     }
 
 }

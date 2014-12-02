@@ -26,6 +26,7 @@ import java.util.List;
 import static com.prylutskyi.blackjack.constants.TestConstants.JSON_FORMAT;
 import static com.prylutskyi.blackjack.enumeration.Rank.*;
 import static com.prylutskyi.blackjack.enumeration.Side.DEALER;
+import static com.prylutskyi.blackjack.enumeration.Side.PLAYER;
 import static com.prylutskyi.blackjack.enumeration.Suit.CLUBS;
 import static com.prylutskyi.blackjack.enumeration.Suit.HEARTS;
 import static org.mockito.Matchers.anyDouble;
@@ -63,7 +64,7 @@ public class GameControllerTest {
         List<Card> dealerCards = gameStatus.getDealerCards();
         dealerCards.add(new Card(KING, CLUBS));
         when(gameService.startGame(anyLong(), anyDouble())).thenReturn(gameStatus);
-        String request = "/game/3/startGame/20";
+        String request = "/game/3/startgame/20";
         MockHttpServletRequestBuilder startGame = post(request);
         mockGameController.perform(startGame)
                 .andExpect(status().isOk())
@@ -81,7 +82,7 @@ public class GameControllerTest {
         List<Card> dealerCards = gameStatus.getDealerCards();
         dealerCards.add(new Card(KING, CLUBS));
         when(gameService.makeBet(anyLong(), anyDouble())).thenReturn(gameStatus);
-        String request = "/game/3/makeBet/20";
+        String request = "/game/3/bet/20";
         MockHttpServletRequestBuilder makeBet = post(request);
         mockGameController.perform(makeBet)
                 .andExpect(status().isOk())
@@ -103,18 +104,18 @@ public class GameControllerTest {
                 .andExpect(jsonPath("$.winner").value(DEALER.toString()));
     }
 
-//    @Test
-//    public void testHit() throws Exception {
-//        GameStatus gameStatus = new GameStatus();
-//        gameStatus.setWinner(PLAYER);
-//        when(gameService.hit(anyLong())).thenReturn(gameStatus);
-//        String request = "/game/3/hit";
-//        MockHttpServletRequestBuilder hit = post(request);
-//        mockGameController.perform(hit)
-//                .andExpect(status().isOk())
-//                .andExpect(JSON_FORMAT)
-//                .andExpect(jsonPath("$.winner").value(PLAYER.toString()));
-//    }
+    @Test
+    public void testHit() throws Exception {
+        GameStatus gameStatus = new GameStatus();
+        gameStatus.setWinner(PLAYER);
+        when(gameService.hit(anyLong())).thenReturn(gameStatus);
+        String request = "/game/3/hit";
+        MockHttpServletRequestBuilder hit = post(request);
+        mockGameController.perform(hit)
+                .andExpect(status().isOk())
+                .andExpect(JSON_FORMAT)
+                .andExpect(jsonPath("$.winner").value(PLAYER.toString()));
+    }
 
     @Test
     public void testGetGamesForAccount() throws Exception {

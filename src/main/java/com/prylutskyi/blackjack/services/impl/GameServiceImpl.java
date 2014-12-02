@@ -7,6 +7,7 @@ import com.prylutskyi.blackjack.engine.BlackJackEngine;
 import com.prylutskyi.blackjack.enumeration.Side;
 import com.prylutskyi.blackjack.services.GameService;
 import com.prylutskyi.blackjack.vo.*;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +25,7 @@ import static com.prylutskyi.blackjack.utils.DoubleUtils.sum;
 /**
  * Created by Patap on 29.11.2014.
  */
+@Transactional
 public class GameServiceImpl implements GameService {
 
     private AccountDao accountDao;
@@ -145,12 +147,14 @@ public class GameServiceImpl implements GameService {
 
     private void processAccountUpdate(Table table, double balanceChange) {
         Account account = table.getAccount();
+        account = accountDao.findById(account.getAccountId());
         Double balance = account.getBalance();
         account.setBalance(sum(balance, balanceChange));
         Transaction transaction = new Transaction();
         transaction.setAccount(account);
         transaction.setOperation(balanceChange);
-        account.getTransactions().add(transaction);
+        List<Transaction> transactions = account.getTransactions();
+        transactions.add(transaction);
         accountDao.saveOrUpdate(account);
         LOGGER.info("Account with id" + account.getAccountId() + " balance changed: " + balanceChange);
     }

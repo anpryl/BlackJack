@@ -2,7 +2,7 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-    <class name="com.prylutskyi.blackjack.vo.Account" table="account" catalog="blackjack">
+    <class name="com.prylutskyi.blackjack.vo.Account" table="account" catalog="public">
         <id name="accountId" type="java.lang.Long">
             <column name="account_id"/>
             <generator class="native"/>

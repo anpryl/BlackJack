@@ -76,7 +76,7 @@ public class AccountControllerTest {
         Account account = new Account();
         accountDao.saveOrUpdate(account);
         Long accountId = account.getAccountId();
-        String request = "/account/addFunds/" + accountId + "/" + TEST_BALANCE;
+        String request = "/account/addmoney/" + accountId + "/" + TEST_BALANCE;
         MockHttpServletRequestBuilder addFunds = put(request);
         mockAccountController.perform(addFunds).andExpect(status().isOk());
         Account byId = accountDao.findById(accountId);
