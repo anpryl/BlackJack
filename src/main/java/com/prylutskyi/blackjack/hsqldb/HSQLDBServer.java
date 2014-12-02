@@ -47,7 +47,7 @@ public class HSQLDBServer implements SmartLifecycle {
     @Override
     public void stop() {
         LOGGER.info("Stopping HSQL server...");
-        if (server != null && running) {
+        if (server != null) {
             server.stop();
             running = false;
         }
