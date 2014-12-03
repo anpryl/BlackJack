@@ -156,6 +156,7 @@ public class GameServiceImpl implements GameService {
         account.setBalance(sum(balance, balanceChange));
         Transaction transaction = new Transaction();
         transaction.setAccount(account);
+
         transaction.setOperation(balanceChange);
         transactionDao.saveOrUpdate(transaction);
         LOGGER.info("Account with id" + account.getAccountId() + " balance changed: " + balanceChange);
