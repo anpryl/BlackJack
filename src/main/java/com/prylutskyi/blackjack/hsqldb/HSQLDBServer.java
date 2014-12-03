@@ -19,7 +19,7 @@ public class HSQLDBServer implements SmartLifecycle {
     private boolean running = false;
 
     public HSQLDBServer(Properties props) {
-        properties = new HsqlProperties(props);
+        properties = new HsqlProperties();
     }
 
     @Override

@@ -23,6 +23,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import javax.sql.DataSource;
 import java.util.Properties;
 
+//import com.prylutskyi.blackjack.hsqldb.HSQLDBServer;
+
 /**
  * Created by Patap on 27.11.2014.
  */
@@ -39,9 +41,9 @@ public class PersistenceConfig {
     public static final String JDBC_USERNAME = "jdbc.username";
     public static final String JDBC_PASSWORD = "jdbc.password";
 
-    public static final String DATABASE_FILE = "database.0";
-    public static final String DATABASE_NAME = "dbname.0";
-    public static final String SERVER_REMOTE_OPEN = "remote_open";
+    public static final String DATABASE_FILE = "server.database.0";
+    public static final String DATABASE_NAME = " server.dbname.0";
+    public static final String SERVER_REMOTE_OPEN = "server.remote_open";
     public static final String RECONFIG_LOGGING = "reconfig_logging";
 
     @Autowired
@@ -102,10 +104,9 @@ public class PersistenceConfig {
 
     private Properties getHsqldbProperties() {
         Properties prop = new Properties();
-        putProperty(prop, DATABASE_FILE);
-        putProperty(prop, DATABASE_NAME);
-        putProperty(prop, SERVER_REMOTE_OPEN);
-        putProperty(prop, RECONFIG_LOGGING);
+        prop.put(DATABASE_FILE, "file:BlackJackDB/demodb");
+        prop.put(DATABASE_NAME, "xdb");
+        prop.put(SERVER_REMOTE_OPEN, "true");
         return prop;
     }
 
@@ -120,5 +121,4 @@ public class PersistenceConfig {
     private void putProperty(Properties prop, String key) {
         prop.put(key, env.getProperty(key));
     }
-
 }

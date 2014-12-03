@@ -3,10 +3,12 @@ package com.prylutskyi.blackjack.services.impl;
 import com.prylutskyi.blackjack.dao.AccountDao;
 import com.prylutskyi.blackjack.dao.ActionDao;
 import com.prylutskyi.blackjack.dao.GameDao;
+import com.prylutskyi.blackjack.dao.TransactionDao;
 import com.prylutskyi.blackjack.engine.BlackJackEngine;
 import com.prylutskyi.blackjack.enumeration.Side;
 import com.prylutskyi.blackjack.services.GameService;
 import com.prylutskyi.blackjack.vo.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
@@ -37,6 +39,9 @@ public class GameServiceImpl implements GameService {
     private BlackJackEngine blackJackEngine;
 
     private Map<Long, Table> tables = new ConcurrentHashMap<>();
+
+    @Autowired
+    private TransactionDao transactionDao;
 
     @Override
     public List<Game> getGamesForAccount(long accountId) {
@@ -147,15 +152,12 @@ public class GameServiceImpl implements GameService {
 
     private void processAccountUpdate(Table table, double balanceChange) {
         Account account = table.getAccount();
-        account = accountDao.findById(account.getAccountId());
         Double balance = account.getBalance();
         account.setBalance(sum(balance, balanceChange));
         Transaction transaction = new Transaction();
         transaction.setAccount(account);
         transaction.setOperation(balanceChange);
-        List<Transaction> transactions = account.getTransactions();
-        transactions.add(transaction);
-        accountDao.saveOrUpdate(account);
+        transactionDao.saveOrUpdate(transaction);
         LOGGER.info("Account with id" + account.getAccountId() + " balance changed: " + balanceChange);
     }
 
