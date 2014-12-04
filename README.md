@@ -52,6 +52,7 @@ List of commands:
 
 Examples:
 /localhost:8080/create/1000  - you will get JSON file with accountId there, for example - 1
+/localhost:8080/game/1/startgame/50
 /localhost:8080/game/1/hit    
 /localhost:8080/game/1/stand  
 /localhost:8080/game/1/bet/50        
