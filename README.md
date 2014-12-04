@@ -41,7 +41,7 @@ List of commands:
       /stand/ - (POST_METHOD) - when you decide to stop take cards from deck you say "Stand" and dealer 
       starts his move. Returns GameStatus                                       
     
-    /games/ - (GET_METHOD) - returns all games for {accountId}
+      /games/ - (GET_METHOD) - returns all games for {accountId}
     
 
 /transactions/{accoundId} - (GET_METHOD) - returns all transactions for {accountId}
