@@ -13,11 +13,11 @@ public class GameStatus implements Serializable {
 
     private static final long serialVersionUID = -8432723008713154711L;
 
+    private Side winner;
+
     private List<Card> playerCards = new ArrayList<>();
 
     private List<Card> dealerCards = new ArrayList<>();
-
-    private Side winner;
 
     public Side getWinner() {
         return winner;
