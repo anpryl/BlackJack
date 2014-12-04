@@ -16,7 +16,8 @@ Address of application: localhost:8080
 
 List of commands:
 
-/account + :
+/account + 
+
       /create - (POST_METHOD) - return created Account with 0 balance
     
       /create/{startBalance} - (POST_METHOD) - return created Account with {startBalance}
@@ -24,8 +25,8 @@ List of commands:
       /addmoney/{accountId}/{amount} - (PUT_METHOD)  - add {amount} to Account's({accountID}) balance
     
       /get{accountId} - (GET_METHOD)  - return Account info by {accountId}
-_______________________________________________________________  
-/game/{accountId} + :
+
+/game/{accountId} + 
    
       /startgame/{bet} - (POST_METHOD) -  prepares new table for new player {accountId} with {bet},
       you need to click this only once per session, but you can always start new game. 
@@ -42,7 +43,7 @@ _______________________________________________________________
     
     /games/ - (GET_METHOD) - returns all games for {accountId}
     
-_______________________________________________________________
+
 /transactions/{accoundId} - (GET_METHOD) - returns all transactions for {accountId}
 
 /actions/{gameId} - (GET_METHOD) - returns all actions for specific game by {gameId}
