@@ -38,6 +38,7 @@ public class GameServiceTestConfig {
         gameService.setAccountDao(accountDao);
         gameService.setActionDao(actionDao);
         gameService.setGameDao(gameDao);
+        gameService.setTransactionDao(transactionDao);
         gameService.setBlackJackEngine(blackJackEngineForTest());
         return gameService;
     }

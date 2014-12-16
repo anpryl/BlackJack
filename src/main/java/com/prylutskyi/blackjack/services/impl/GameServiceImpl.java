@@ -38,10 +38,9 @@ public class GameServiceImpl implements GameService {
 
     private BlackJackEngine blackJackEngine;
 
-    private Map<Long, Table> tables = new ConcurrentHashMap<>();
-
-    @Autowired
     private TransactionDao transactionDao;
+
+    private Map<Long, Table> tables = new ConcurrentHashMap<>();
 
     @Override
     public List<Game> getGamesForAccount(long accountId) {
@@ -185,5 +184,9 @@ public class GameServiceImpl implements GameService {
         Table table = new Table(account, game);
         table.setDeck(getShuffledDeck());
         return table;
+    }
+
+    public void setTransactionDao(TransactionDao transactionDao) {
+        this.transactionDao = transactionDao;
     }
 }

@@ -69,6 +69,7 @@ public class ServicesConfig {
         gameService.setActionDao(actionDao);
         gameService.setGameDao(gameDao);
         gameService.setBlackJackEngine(blackJackEngine());
+        gameService.setTransactionDao(transactionDao);
         return gameService;
     }
 
