@@ -34,6 +34,7 @@ import static org.mockito.Matchers.anyLong;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -64,7 +65,7 @@ public class GameControllerTest {
         List<Card> dealerCards = gameStatus.getDealerCards();
         dealerCards.add(new Card(KING, CLUBS));
         when(gameService.startGame(anyLong(), anyDouble())).thenReturn(gameStatus);
-        String request = "/game/3/startgame/20";
+        String request = "/game/3/20";
         MockHttpServletRequestBuilder startGame = post(request);
         mockGameController.perform(startGame)
                 .andExpect(status().isOk())
@@ -82,8 +83,8 @@ public class GameControllerTest {
         List<Card> dealerCards = gameStatus.getDealerCards();
         dealerCards.add(new Card(KING, CLUBS));
         when(gameService.makeBet(anyLong(), anyDouble())).thenReturn(gameStatus);
-        String request = "/game/3/bet/20";
-        MockHttpServletRequestBuilder makeBet = post(request);
+        String request = "/game/3/20";
+        MockHttpServletRequestBuilder makeBet = put(request);
         mockGameController.perform(makeBet)
                 .andExpect(status().isOk())
                 .andExpect(JSON_FORMAT)
@@ -130,7 +131,7 @@ public class GameControllerTest {
         games.add(game1);
         games.add(game2);
         when(gameService.getGamesForAccount(accountId)).thenReturn(games);
-        String request = "/game/" + accountId + "/games";
+        String request = "/game/" + accountId;
         MockHttpServletRequestBuilder getGamesForAccount = get(request);
         mockGameController.perform(getGamesForAccount)
                 .andExpect(status().isOk())

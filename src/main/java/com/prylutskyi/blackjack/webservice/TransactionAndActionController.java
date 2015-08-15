@@ -28,12 +28,12 @@ public class TransactionAndActionController {
     @Autowired
     private ActionService actionService;
 
-    @RequestMapping(value = "/transactions/{accountId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/transaction/{accountId}", method = RequestMethod.GET)
     public List<Transaction> getTransactionsForAccount(@PathVariable long accountId) {
         return transactionService.getTransactionsForAccount(accountId);
     }
 
-    @RequestMapping(value = "/actions/{gameId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/action/{gameId}", method = RequestMethod.GET)
     public List<Action> getActionsForGame(@PathVariable long gameId) {
         return actionService.getActionsForGame(gameId);
     }

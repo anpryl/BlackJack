@@ -51,7 +51,7 @@ public class AccountControllerTest {
 
     @Test
     public void testCreateAccount() throws Exception {
-        String request = "/account/create";
+        String request = "/account";
         MockHttpServletRequestBuilder creageAccount = post(request);
         mockAccountController.perform(creageAccount)
                 .andExpect(status().isOk())
@@ -61,22 +61,11 @@ public class AccountControllerTest {
     }
 
     @Test
-    public void testCreateAccountWithBalance() throws Exception {
-        String request = "/account/create/" + TEST_BALANCE;
-        MockHttpServletRequestBuilder creageAccount = post(request);
-        mockAccountController.perform(creageAccount)
-                .andExpect(status().isOk())
-                .andExpect(JSON_FORMAT)
-                .andExpect(jsonPath("$.accountId").exists())
-                .andExpect(jsonPath("$.balance").value(is(TEST_BALANCE)));
-    }
-
-    @Test
     public void testAddFunds() throws Exception {
         Account account = new Account();
         accountDao.saveOrUpdate(account);
         Long accountId = account.getAccountId();
-        String request = "/account/addmoney/" + accountId + "/" + TEST_BALANCE;
+        String request = "/account/" + accountId + "/money/" + TEST_BALANCE;
         MockHttpServletRequestBuilder addFunds = put(request);
         mockAccountController.perform(addFunds).andExpect(status().isOk());
         Account byId = accountDao.findById(accountId);
@@ -90,7 +79,7 @@ public class AccountControllerTest {
         Account account = new Account();
         accountDao.saveOrUpdate(account);
         Long accountId = account.getAccountId();
-        String request = "/account/get" + accountId;
+        String request = "/account/" + accountId;
         MockHttpServletRequestBuilder getAccount = get(request);
         mockAccountController.perform(getAccount)
                 .andExpect(status().isOk())

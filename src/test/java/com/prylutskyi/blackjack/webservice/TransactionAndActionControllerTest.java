@@ -61,7 +61,7 @@ public class TransactionAndActionControllerTest {
         transaction.setAccount(account);
         transaction.setOperation(TEST_BALANCE);
         accountDao.saveOrUpdate(account);
-        String request = "/transactions/" + account.getAccountId();
+        String request = "/transaction/" + account.getAccountId();
         MockHttpServletRequestBuilder getTransactions = get(request);
         mockTransactionActionController.perform(getTransactions)
                 .andExpect(status().isOk())
@@ -81,7 +81,7 @@ public class TransactionAndActionControllerTest {
         action.setGame(game);
         game.getActions().add(action);
         gameDao.saveOrUpdate(game);
-        String request = "/actions/" + game.getGameId();
+        String request = "/action/" + game.getGameId();
         MockHttpServletRequestBuilder getActions = get(request);
         mockTransactionActionController.perform(getActions)
                 .andExpect(status().isOk())

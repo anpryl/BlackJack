@@ -18,22 +18,17 @@ public class AccountController {
     @Autowired
     private AccountService accountService;
 
-    @RequestMapping(value = "/create", method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST)
     public Account createAccount() {
         return accountService.createAccount();
     }
 
-    @RequestMapping(value = "/create/{startBalance}", method = RequestMethod.POST)
-    public Account createAccount(@PathVariable double startBalance) {
-        return accountService.createAccount(startBalance);
-    }
-
-    @RequestMapping(value = "/addmoney/{accountId}/{amount}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/{accountId}/money/{amount}", method = RequestMethod.PUT)
     public void addMoney(@PathVariable long accountId, @PathVariable double amount) {
         accountService.increaseBalance(accountId, amount);
     }
 
-    @RequestMapping(value = "/get{accountId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{accountId}", method = RequestMethod.GET)
     public Account getAccountById(@PathVariable long accountId) {
         return accountService.getAccountById(accountId);
     }

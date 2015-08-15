@@ -21,12 +21,13 @@ public class GameController {
     @Autowired
     private GameService gameService;
 
-    @RequestMapping(value = "/startgame/{bet}", method = RequestMethod.POST)
+    @RequestMapping(value = "/{bet}", method = RequestMethod.POST)
     public GameStatus startGame(@PathVariable long accountId, @PathVariable double bet) {
         return gameService.startGame(accountId, bet);
     }
 
-    @RequestMapping(value = "/bet/{bet}", method = RequestMethod.POST)
+
+    @RequestMapping(value = "/{bet}", method = RequestMethod.PUT)
     public GameStatus makeBet(@PathVariable long accountId, @PathVariable double bet) {
         return gameService.makeBet(accountId, bet);
     }
@@ -41,7 +42,7 @@ public class GameController {
         return gameService.hit(accountId);
     }
 
-    @RequestMapping(value = "/games", method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET)
     public List<Game> getGamesForAccount(@PathVariable long accountId) {
         return gameService.getGamesForAccount(accountId);
     }
